@@ -1,0 +1,61 @@
+<app-header></app-header>
+<h1>Реєстрація</h1>
+
+<form #myForm="ngForm" (ngSubmit)="sendForm()" novalidate>
+  <mat-form-field>
+    <input matInput
+           #nameI="ngModel"
+           type="text"
+           name="name"
+           required
+           placeholder="Ім'я"
+           [(ngModel)]="user.name">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           #nameI="ngModel"
+           type="text"
+           name="surname"
+           placeholder="Прізвище"
+           required
+           [(ngModel)]="user.surname">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+  <input matInput
+    #nameI="ngModel"
+    type="text"
+         name="username"
+         placeholder="Логін"
+         required
+  [(ngModel)]="user.username">
+   </mat-form-field>
+  <mat-form-field>
+  <input matInput
+         type="text"
+         name="password"
+         required
+         placeholder="Пароль"
+         [(ngModel)]="user.password">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+  <input matInput
+         type="email"
+         name="email"
+         placeholder="Е-Пошта"
+         required
+         [(ngModel)]="user.email">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput
+           type="text"
+           name="phoneNumber"
+           placeholder="Телефон"
+           [(ngModel)]="user.phoneNumber">
+  </mat-form-field>
+  <br>
+  <input type="file" name="avatar" (change)="onPhotoUpload($event)">
+  <button mat-button [disabled] = "myForm.invalid" type="Submit">Sign Up</button>
+</form>
+

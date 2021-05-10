@@ -1,0 +1,42 @@
+:root{
+  --main-bg-color: brown;
+  --main-bg-color2: black;
+}
+.message{
+  width: 300px;
+  alignment: right;
+  background-color: var(--main-bg-color2);
+  border-radius: 20px;
+  float: right;
+  margin: 1%
+}
+.sended-message{
+  width: 300px;
+  alignment: right;
+  /*background: #336699;*/
+
+  background-color: var(--main-bg-color);
+  border-radius: 20px;
+  float: left;
+  margin: 1%
+}
+.user{
+  font-weight: bold;
+  margin-right: 7%;
+  text-align: right;
+  color: #efefef;
+  margin-bottom: 1%;
+}
+.content{
+  margin-left: 7%;
+  color: #efefef;
+  overflow: fragments;
+  word-wrap: break-word;;
+}
+.sender{
+  font-weight: bold;
+  margin-left: 7%;
+  text-align: left;
+  color: #efefef;
+  margin-bottom: 1%;
+}

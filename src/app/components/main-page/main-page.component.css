@@ -1,0 +1,46 @@
+* {
+  font-family: 'proxima_nova_rgregular', Arial, sans-serif;
+}
+.cards{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  min-width: 200px;
+  margin-left: 2%;
+}
+.mat-card{
+  width: 245px;
+  height: 500px;
+  margin: 10px;
+  background: aquamarine;
+  transition: width 1s, height 1s, background-color 0.5s, transform 1s;
+}
+.mat-card:hover{
+  width: 250px;
+}
+
+mat-card-footer{
+  margin: 1%;
+}
+
+.postImage{
+  height: 300px;
+}
+.text{
+  overflow: hidden;
+  height: 60px;
+}
+.example-container {
+  width: 100%;
+  margin: 10px;
+}
+.side{
+  width: 230px;
+}
+.title{
+  font-size: 1.3em;
+  margin-bottom: 1%;
+}
+mat-card-subtitle{
+  margin-bottom: 1%;
+}

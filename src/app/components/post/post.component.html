@@ -1,0 +1,92 @@
+<app-header></app-header>
+<h1>Додати пост</h1>
+<mat-form-field>
+  <mat-label>Тип посту</mat-label>
+  <mat-select [(ngModel)]="post.kind" name="kind">
+    <mat-option *ngFor="let k of kind" [value]="k.valueOf()">
+      {{k.valueOf()}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field>
+  <mat-label>Місто</mat-label>
+  <mat-select [(ngModel)]="postCity" name="city">
+    <mat-option *ngFor="let city of this.cities" value="{{city.name}}">{{city.name}}</mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field *ngIf="postCity && postCity === 'Львів'">
+  <mat-label>Район</mat-label>
+  <mat-select [(ngModel)]="post.postDistrict" name="postDistrict">
+    <mat-option *ngFor="let dL of districtLviv" [value]="dL">
+      {{dL.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<mat-form-field *ngIf="postCity && postCity === 'Київ'">
+  <mat-label>Район</mat-label>
+  <mat-select [(ngModel)]="post.postDistrict" name="postDistrict">
+    <mat-option *ngFor="let dK of districtKyiv" [value]="dK">
+      {{dK.name}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+<form #postForm="ngForm" class="view" *ngIf="post.kind === 'Віддати'" (ngSubmit)="savePostWithPet(postForm)">
+  <div *ngIf="post.kind === 'Залишити'"></div>
+
+  <mat-form-field>
+    <input matInput placeholder="Назва" [(ngModel)]="post.title" name="title">
+  </mat-form-field>
+  <br>
+
+
+  <mat-form-field>
+    <mat-label>Тваринка</mat-label>
+    <mat-select [(ngModel)]="post.pet" name="pet">
+        <div *ngFor="let pet of this.pets">
+            <mat-option [value]="pet">
+              {{pet.name}}
+            </mat-option>
+      </div>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" placeholder="Дата подання" [(ngModel)]="post.date" name="date">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput [min]="post.date" [matDatepicker]="exppicker" placeholder="Кінцева дата" [(ngModel)]="post.expirationDate"
+           name="expirationDate">
+    <mat-datepicker-toggle matSuffix [for]="exppicker"></mat-datepicker-toggle>
+    <mat-datepicker #exppicker></mat-datepicker>
+  </mat-form-field>
+  <mat-form-field class="textAreaFullWidth">
+        <textarea matInput placeholder="Додаткова інформація" [(ngModel)]="post.optionalField" name="optional_field">
+        </textarea>
+  </mat-form-field>
+  <br>
+  <button mat-button class="mat-button " type="submit">Додати</button>
+</form>
+<form #postForm="ngForm" class="view" *ngIf="post.kind === 'Залишити'" (ngSubmit)="savePost(postForm)">
+  <mat-form-field>
+    <input matInput placeholder="Назва" [(ngModel)]="post.title" name="title">
+  </mat-form-field>
+  <br>
+  <mat-form-field class="textAreaFullWidth">
+        <textarea matInput placeholder="Додаткова інформація" [(ngModel)]="post.optionalField" name="optional_field">
+        </textarea>
+  </mat-form-field>
+  <div *ngIf="post.kind === 'Залишити'">
+    <mat-form-field>
+      <input matInput type="text" placeholder="Ціна за добу" [(ngModel)]="post.price" name="price">
+    </mat-form-field>
+    <div class="preview">
+      <input type="file" (change)="onFileUpload($event)">
+      <br>
+      <img [src]="imagePreview " alt=" " *ngIf="imagePreview ">
+    </div>
+  </div>
+  <br>
+  <button mat-button class="mat-button " type="submit">Додати</button>
+</form>

@@ -1,0 +1,25 @@
+.header{
+  background: blueviolet;
+  margin: 0;
+  width: 100%;
+  height: 50px;
+}
+.flex-class{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+}
+/*.example-spacer {*/
+/*  flex: 1 1 auto;*/
+/*}*/
+.mat-toolbar-row{
+  display: flex;
+  padding: 0 16px;
+  width: 100%;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  justify-content: space-evenly;
+}
+

@@ -1,0 +1,59 @@
+<app-header></app-header>
+<div id="main-content" class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <form class="form-inline">
+        <div class="form-group">
+          <mat-form-field>
+            <mat-label>Користувач</mat-label>
+            <mat-select [(ngModel)]="greeting.toId" (selectionChange)="randomColor()" name="toId">
+              <mat-option *ngFor="let u of users" [value]="u.username">{{u.name}} {{u.surname}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+
+        <div class="form-group">
+          <label>Message</label>
+          <input type="text" [(ngModel)]="greeting.content" class="form-control" name="name"> <br>
+        </div>
+        <button (click)="sendMessage(greeting)" class="btn btn-default" type="click">Send</button>
+        <div *ngFor="let m of recievedMessages">
+          <ng-container
+            *ngIf="(greeting.toId != null && m.fromId.username === greeting.fromId && m.toId.username === greeting.toId); else second">
+            <div class="message">
+              <p class="user">{{m.fromId.username}}</p>
+              <p class="content">{{m.content}}</p>
+            </div>
+          </ng-container>
+          <ng-template #second>
+            <ng-container
+              *ngIf="(greeting.toId != null && m.toId.username === greeting.fromId && m.fromId.username === greeting.toId) ">
+              <div class="sended-message">
+                <p class="sender">{{m.fromId.username}}</p>
+                <p class="content">{{m.content}}</p>
+              </div>
+            </ng-container>
+          </ng-template>
+        </div>
+        <div *ngFor="let message of messages">
+          <ng-container
+            *ngIf="(greeting.toId != null && message.fromId === greeting.fromId && message.toId === greeting.toId); else second">
+            <div class="message">
+              <p class="user">{{message.fromId}}</p>
+              <p class="content">{{message.content}}</p>
+            </div>
+          </ng-container>
+          <ng-template #second>
+            <ng-container
+              *ngIf="(greeting.toId != null && message.toId === greeting.fromId && message.fromId === greeting.toId) ">
+              <div class="sended-message">
+                <p class="sender">{{message.fromId}}</p>
+                <p class="content">{{message.content}}</p>
+              </div>
+            </ng-container>
+          </ng-template>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

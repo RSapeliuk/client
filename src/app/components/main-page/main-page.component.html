@@ -1,0 +1,70 @@
+<app-header></app-header>
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened class="side">
+    <mat-form-field>
+      <mat-label>Місто</mat-label>
+      <mat-select [(ngModel)]="selectedCity" (selectionChange)="addParamsToQuery({city: selectedCity.name})" name="selectedCity">
+        <mat-option *ngFor="let city of cities" [value]="city">{{city.name}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="selectedCity && selectedCity.name === 'Львів'">
+      <mat-checkbox *ngFor="let districtLviv of districtsLvivEnumName; let i = index"
+                    [checked]="districtLviv.checked"
+                    (change)="addParamsToQuery({district: {value: districtsLviv[districtLviv.value], index: i}})"
+      >{{districtsLviv[districtLviv.value]}}</mat-checkbox>
+    </div>
+    <div *ngIf="selectedCity && selectedCity.name === 'Київ'">
+      <mat-checkbox *ngFor="let districtKyiv of districtsKyivEnumName; let i = index"
+                    (change)="addParamsToQuery({district: {value: districtsKyiv[districtKyiv.value], index: i}})"
+      >{{districtsKyiv[districtKyiv.value]}}</mat-checkbox>
+    </div>
+    <label>Тип посту</label><br>
+    <mat-radio-group *ngFor="let typeOF of typeEnum" name="type" [(ngModel)]="typeOf">
+      <mat-radio-button [value]="typeOF" (click)="addParamsToQuery({type: typeOf})">{{type[typeOF]}}</mat-radio-button>
+      <br>
+    </mat-radio-group>
+  </mat-drawer>
+  <mat-drawer-content>
+    <div *ngIf="this.posts" class="cards">
+      <div *ngFor="let post of this.posts">
+        <mat-card class="mat-card" *ngIf="post.enabled" (click)="postDetails(post)">
+          <mat-card-header>
+            <div mat-card-avatar *ngIf="post.user.avatar === null; else photo">
+              <img mat-card-avatar src="http://storage.proboards.com/6747819/images/kIDnzzBGZLVoizBNhvQs.png" alt="">
+            </div>
+            <ng-template mat-card-avatar #photo>
+              <img mat-card-avatar
+                   [src]="this.postService.apiService.apiUrl+ '/images/'+ post.user.avatar">
+            </ng-template>
+            <mat-card-subtitle>{{post.user.name}} {{post.user.surname}}</mat-card-subtitle>
+            <mat-card-title class="title">{{post.title}}</mat-card-title>
+          </mat-card-header>
+          <div *ngIf="post.kind === 'Залишити'">
+            <div *ngIf="post.photo; else blankPhoto">
+              <img mat-card-image class="postImage" [src]="this.postService.apiService.apiUrl+ '/images/'+ post.photo">
+            </div>
+            <ng-template #blankPhoto>
+              <img mat-card-image class="postImage"
+                   src="https://images.fineartamerica.com/images/artworkimages/mediumlarge/2/2-interior-wall-with-blank-picture-frame-jon-boyes.jpg"
+                   alt=""></ng-template>
+          </div>
+          <div *ngIf="post.pet && post.kind === 'Віддати'">
+            <img mat-card-image class="postImage" [src]="this.postService.apiService.apiUrl+ '/images/'+ post.pet.photo">
+          </div>
+          <mat-card-content class="text">{{post.optionalField}}</mat-card-content>
+          <mat-card-footer>
+            <div *ngIf="post.date && post.expirationDate">
+              {{post.date}} - {{post.expirationDate}}
+            </div>
+            <div *ngIf="post.price">
+              Ціна: {{post.price}}
+            </div>
+          </mat-card-footer>
+        </mat-card>
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
+
+<router-outlet></router-outlet>
